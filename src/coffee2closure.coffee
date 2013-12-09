@@ -27,6 +27,7 @@
 
 esprima = require 'esprima'
 _ = require 'underscore'
+hooks = require '../lib/hooks'
 
 requireGoogArray = false
 
@@ -131,6 +132,7 @@ findConstructors = (tokens) ->
     nextSibling = tokens[i + 1]
     continue if !isConstructor token, nextSibling
     token.__className = nextSibling.value
+    hooks.injectConstructorIfMissing tokens[i - 1]
     constructors.push token
   constructors
 
